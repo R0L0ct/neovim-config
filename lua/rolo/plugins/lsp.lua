@@ -9,7 +9,7 @@ return {
 		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 		vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
-		local on_attach = function(_, bufnr)
+		local on_attach = function(client, bufnr)
 			local opts = { buffer = bufnr, noremap = true, silent = true }
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
 			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
@@ -23,34 +23,21 @@ return {
 			--     vim.lsp.buf.format { async = true }
 			-- end, opts)
 
-			vim.api.nvim_create_autocmd("CursorHold", {
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.document_highlight()
-				end,
-			})
+			if client.server_capabilities.documentHighlightProvider then
+				vim.api.nvim_create_autocmd("CursorHold", {
+					buffer = bufnr,
+					callback = function()
+						vim.lsp.buf.document_highlight()
+					end,
+				})
 
-			vim.api.nvim_create_autocmd("CursorMoved", {
-				buffer = bufnr,
-				callback = function()
-					vim.lsp.buf.clear_references()
-				end,
-			})
-		end
-
-		local sql_on_attach = function(_, bufnr)
-			local opts = { buffer = bufnr, noremap = true, silent = true }
-			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
-			vim.keymap.set("n", "gd", vim.lsp.buf.definition, opts)
-			vim.keymap.set("n", "K", vim.lsp.buf.hover, opts)
-			vim.keymap.set("n", "<leader>vca", vim.lsp.buf.code_action, opts)
-			vim.keymap.set("n", "<leader>vrr", vim.lsp.buf.references, opts)
-			vim.keymap.set("n", "<leader>vrn", vim.lsp.buf.rename, opts)
-			vim.keymap.set("n", "gi", vim.lsp.buf.implementation, opts)
-			vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, opts)
-			-- vim.keymap.set('n', '<leader>f', function()
-			--     vim.lsp.buf.format { async = true }
-			-- end, opts)
+				vim.api.nvim_create_autocmd("CursorMoved", {
+					buffer = bufnr,
+					callback = function()
+						vim.lsp.buf.clear_references()
+					end,
+				})
+			end
 		end
 
 		require("neodev").setup()
@@ -66,34 +53,36 @@ return {
 			},
 		})
 
+		-- Angular
+
 		local util = require("lspconfig/util")
 
-		-- Angular
 		require("lspconfig").angularls.setup({
 			on_attach = on_attach,
-			cmd = { "ngserver", "--stdio" },
+			cmd = {
+				"ngserver",
+				"--stdio",
+				"--tsProbeLocations",
+				table.concat({
+					"/home/rolo/.nvm/versions/node/v22.11.0/lib/node_modules/@angular/language-service",
+				}, ","),
+				"--ngProbeLocations",
+				table.concat({
+					"/home/rolo/.nvm/versions/node/v22.11.0/lib/node_modules/@angular/language-service",
+				}, ","),
+			},
 			filetypes = {
 				"typescript",
 				"html",
 				"typescriptreact",
 				"typescript.tsx",
-				"angular",
 			},
-			root_dir = util.root_pattern("angular.json", "package.json", ".git"),
-			on_new_config = function(new_config, new_root_dir)
-				new_config.cmd = {
-					"ngserver",
-					"--stdio",
-					"--tsProbeLocations",
-					new_root_dir .. "/node_modules",
-					"--ngProbeLocations",
-					new_root_dir .. "/node_modules",
-				}
-			end,
+			-- root_dir = util.root_pattern("angular.json", "package.json", ".git"),
+			root_dir = util.root_pattern("angular.json"),
 			settings = {
 				angular = {
 					suggest = {
-						strictTemplates = true, -- Sugerencias más estrictas en templates
+						strictTemplates = true, -- Enforce strict suggestions in templates
 					},
 				},
 			},
@@ -101,7 +90,7 @@ return {
 
 		-- SQL
 		require("lspconfig").sqlls.setup({
-			on_attach = sql_on_attach,
+			on_attach = on_attach,
 			cmd = { "sql-language-server", "up", "--method", "stdio" }, -- Asegura que el server inicie correctamente
 			filetypes = { "sql", "mysql", "plsql" }, -- Asegura compatibilidad con SQL y variantes
 			root_dir = util.root_pattern(".sqllsrc.json", "sqlconfig.json", ".git"),
