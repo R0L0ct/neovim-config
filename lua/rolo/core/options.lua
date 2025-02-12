@@ -7,6 +7,7 @@ opt.guicursor = "sm:block"
 
 opt.relativenumber = true
 opt.number = true
+opt.mouse= ""
 
 -- tabs & indentation
 opt.tabstop = 4
