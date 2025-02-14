@@ -9,6 +9,9 @@ return {
 		vim.keymap.set("n", "[d", vim.diagnostic.goto_prev)
 		vim.keymap.set("n", "]d", vim.diagnostic.goto_next)
 		vim.keymap.set("n", "<leader>q", vim.diagnostic.setloclist)
+
+		local cmp_nvim_lsp = require("cmp_nvim_lsp")
+
 		local on_attach = function(client, bufnr)
 			local opts = { buffer = bufnr, noremap = true, silent = true }
 			vim.keymap.set("n", "gD", vim.lsp.buf.declaration, opts)
@@ -40,11 +43,14 @@ return {
 			end
 		end
 
+		local capabilities = cmp_nvim_lsp.default_capabilities()
+
 		require("neodev").setup()
 
 		-- Lua
 		require("lspconfig").lua_ls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 			settings = {
 				Lua = {
 					telemetry = { enable = false },
@@ -59,6 +65,7 @@ return {
 
 		require("lspconfig").angularls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 			cmd = {
 				"ngserver",
 				"--stdio",
@@ -91,6 +98,7 @@ return {
 		-- SQL
 		require("lspconfig").sqlls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 			cmd = { "sql-language-server", "up", "--method", "stdio" }, -- Asegura que el server inicie correctamente
 			filetypes = { "sql", "mysql", "plsql" }, -- Asegura compatibilidad con SQL y variantes
 			root_dir = util.root_pattern(".sqllsrc.json", "sqlconfig.json", ".git"),
@@ -115,48 +123,67 @@ return {
 		})
 
 		-- JAVA
-		-- require("lspconfig").jdtls.setup({
-		--     on_attach = on_attach,
-		-- })
+		--[[ require("lspconfig").jdtls.setup({ ]]
+		--[[ 	on_attach = on_attach, ]]
+		--[[ 	capabilities = capabilities, ]]
+		--[[ }) ]]
 
 		-- TS
 		require("lspconfig").ts_ls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- CSS
 		require("lspconfig").cssls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- Tailwind
 		require("lspconfig").tailwindcss.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- Html
 		require("lspconfig").html.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
+			cmd = { "vscode-html-language-server", "--stdio" },
+			filetypes = { "html", "templ" },
+			init_options = {
+				configurationSection = { "html", "css", "javascript" },
+				embeddedLanguages = {
+					css = true,
+					javascript = true,
+				},
+				provideFormatter = true,
+			},
 		})
 
 		-- Emmet
 		require("lspconfig").emmet_ls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- Prisma
 		require("lspconfig").prismals.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- Bash
 		require("lspconfig").bashls.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 
 		-- Python
 		require("lspconfig").pyright.setup({
 			on_attach = on_attach,
+			capabilities = capabilities,
 		})
 	end,
 }
