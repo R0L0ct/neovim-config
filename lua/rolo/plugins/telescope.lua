@@ -8,9 +8,6 @@ return {
 		require("telescope").setup({
 			defaults = {
 				mappings = {
-					i = {
-						["dd"] = actions.delete_buffer,
-					},
 					n = {
 						["dd"] = actions.delete_buffer,
 					},
