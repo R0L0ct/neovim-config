@@ -25,7 +25,8 @@ function M.setup()
 				end
 			end, { "i", "s" }),
 			["<C-p>"] = cmp.mapping.select_prev_item(),
-			["<CR>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+			["<C-y>"] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+			["<CR>"] = cmp.mapping.confirm({ select = true }), -- Confirm using Enter
 			["<C-space>"] = cmp.mapping.complete(),
 		}),
 		sources = {
