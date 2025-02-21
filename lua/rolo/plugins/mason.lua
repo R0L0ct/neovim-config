@@ -19,6 +19,7 @@ return {
 				"pyright",
 				"bashls",
 				"angularls",
+				"rust_analyzer",
 			},
 			automatic_installation = true,
 		})
