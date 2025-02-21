@@ -134,15 +134,8 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- Eslint
-		require("lspconfig").eslint.setup({
-			on_attach = function(client, bufnr)
-				vim.api.nvim_create_autocmd("BufWritePre", {
-					buffer = bufnr,
-					command = "EslintFixAll",
-				})
-			end,
-		})
+		-- ESLint
+		require("lspconfig").eslint.setup({})
 
 		-- CSS
 		require("lspconfig").cssls.setup({
