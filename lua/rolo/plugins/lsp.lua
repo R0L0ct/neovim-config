@@ -134,9 +134,6 @@ return {
 			capabilities = capabilities,
 		})
 
-		-- ESLint
-		require("lspconfig").eslint.setup({})
-
 		-- CSS
 		require("lspconfig").cssls.setup({
 			on_attach = on_attach,
