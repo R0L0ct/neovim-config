@@ -20,6 +20,7 @@ return {
 				markdown = { "prettier" },
 				sql = { "sqlfmt" },
 				bash = { "beautysh" },
+				c = { "clang-format" },
 			},
 		})
 

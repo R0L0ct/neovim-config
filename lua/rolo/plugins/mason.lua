@@ -36,6 +36,8 @@ return {
 				"isort",
 				"pylint",
 				"eslint_d",
+				"clang-format",
+				"cpplint",
 			},
 		})
 	end,
