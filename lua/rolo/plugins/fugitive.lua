@@ -1,7 +1,7 @@
 return {
 	"tpope/vim-fugitive",
 	config = function()
-		vim.keymap.set("n", "<leader>gs", vim.cmd.Git)
+		vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Git Fugitive" })
 
 		local Rolo_Fugitive = vim.api.nvim_create_augroup("Rolo_Fugitive", {})
 
@@ -30,5 +30,8 @@ return {
 
 		vim.keymap.set("n", "gu", "<cmd>diffget //2<CR>")
 		vim.keymap.set("n", "gh", "<cmd>diffget //3<CR>")
+		vim.keymap.set("n", "<leader>gl", function()
+			vim.cmd.Git("log --oneline")
+		end, { desc = "Show Git commits history" })
 	end,
 }
