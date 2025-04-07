@@ -1,15 +1,23 @@
 return {
-  cmd = { "emmet-language-server", "--stdio" },
-  filetypes = {
-    "css",
-    "html",
-    "blade",
-    "php",
-    "javascript",
-    "javascriptreact",
-    "typescriptreact",
-  },
-  root_markers = {
-    ".git",
-  },
+	cmd = { "emmet-ls", "--stdio" },
+	filetypes = {
+		"astro",
+		"css",
+		"eruby",
+		"html",
+		"htmldjango",
+		"javascriptreact",
+		"less",
+		"pug",
+		"sass",
+		"scss",
+		"svelte",
+		"typescriptreact",
+		"vue",
+		"htmlangular",
+	},
+	root_markers = {
+		".git",
+	},
+	single_file_support = true,
 }
