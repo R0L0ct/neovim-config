@@ -31,8 +31,6 @@ local config = {
 	filetypes = {
 		"typescript",
 		"html",
-		"typescriptreact",
-		"typescript.tsx",
 		"htmlangular",
 	},
 }
