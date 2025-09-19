@@ -6,19 +6,20 @@ if not ok then
 	return
 end
 
-local angularls_path = mason_registry.get_package("angular-language-server"):get_install_path()
+local ngserver_bin = vim.fn.exepath("ngserver")
+local angularls_root = vim.fn.expand("$MASON/packages/angular-language-server")
 
 local cmd = {
-	"ngserver",
+	ngserver_bin,
 	"--stdio",
 	"--tsProbeLocations",
 	table.concat({
-		angularls_path,
+		angularls_root,
 		vim.uv.cwd(),
 	}, ","),
 	"--ngProbeLocations",
 	table.concat({
-		angularls_path .. "/node_modules/@angular/language-server",
+		angularls_root .. "/node_modules/@angular/language-server",
 		vim.uv.cwd(),
 	}, ","),
 }

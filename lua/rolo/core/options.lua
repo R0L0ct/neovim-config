@@ -3,7 +3,7 @@
 
 local opt = vim.opt
 
-opt.guicursor = "sm:block"
+--[[ opt.guicursor = "sm:block" ]]
 
 opt.relativenumber = true
 opt.number = true
