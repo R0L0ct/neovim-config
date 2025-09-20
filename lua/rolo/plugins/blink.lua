@@ -97,6 +97,13 @@ return {
 			--
 			-- See the fuzzy documentation for more information
 			fuzzy = { implementation = "prefer_rust_with_warning" },
+
+			cmdline = {
+				keymap = {
+					preset = "cmdline",
+				},
+				completion = { menu = { auto_show = true } },
+			},
 		},
 		opts_extend = { "sources.default" },
 	},
