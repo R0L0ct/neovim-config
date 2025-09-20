@@ -20,7 +20,7 @@ return {
 				"lua_ls",
 				"emmet_ls",
 				"prismals",
-				"pyright",
+				"pylsp",
 				"bashls",
 				"angularls",
 				"rust_analyzer",
