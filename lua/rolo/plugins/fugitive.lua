@@ -2,6 +2,9 @@ return {
 	"tpope/vim-fugitive",
 	config = function()
 		vim.keymap.set("n", "<leader>gs", vim.cmd.Git, { desc = "Open Git Fugitive" })
+		vim.keymap.set("n", "<leader>gb", function()
+			vim.cmd.Git("blame")
+		end, { desc = "Open Git blame" })
 
 		local Rolo_Fugitive = vim.api.nvim_create_augroup("Rolo_Fugitive", {})
 
@@ -20,8 +23,12 @@ return {
 					vim.cmd.Git("push")
 				end, opts)
 
+				--[[ vim.keymap.set("n", "<leader>P", function() ]]
+				--[[ 	vim.cmd.Git({ "pull", "--rebase" }) ]]
+				--[[ end, opts) ]]
+
 				vim.keymap.set("n", "<leader>P", function()
-					vim.cmd.Git({ "pull", "--rebase" })
+					vim.cmd.Git("pull")
 				end, opts)
 
 				vim.keymap.set("n", "<leader>t", ":Git push -u origin ", opts)
