@@ -47,3 +47,7 @@ keymap.set("t", "<M-l>", [[<C-\><C-n><C-w>l]], opts)
 -- Scroll
 keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
+
+-- DiffView
+keymap.set("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
+keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
