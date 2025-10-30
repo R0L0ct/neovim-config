@@ -51,3 +51,10 @@ keymap.set("n", "<C-u>", "<C-u>zz")
 -- DiffView
 keymap.set("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
 keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
+
+-- Open .env
+vim.keymap.set("n", "<leader>oe", function()
+  local root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
+  vim.cmd("edit " .. root .. "/.env")
+end, { desc = "Abrir .env del proyecto" })
+
