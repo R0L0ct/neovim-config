@@ -70,8 +70,8 @@ keymap.set("n", "<C-d>", "<C-d>zz")
 keymap.set("n", "<C-u>", "<C-u>zz")
 
 -- DiffView
-keymap.set("n", "<leader>do", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
-keymap.set("n", "<leader>dc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
+keymap.set("n", "<leader>gvo", "<cmd>DiffviewOpen<CR>", { desc = "Open Diffview" })
+keymap.set("n", "<leader>gvc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffview" })
 
 -- Open .env
 vim.keymap.set("n", "<leader>oe", function()
