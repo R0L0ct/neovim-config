@@ -18,14 +18,28 @@ return {
 		})
 
 		-- Definición del Adaptador 'pwa-node'
+		--dap.adapters["pwa-node"] = {
+		--	type = "server",
+		--	host = "localhost",
+		--	port = "${port}",
+		--	executable = {
+		--		-- **VERIFICAR RUTA**: Asegúrate que esta ruta sea correcta para la instalación de Mason en tu sistema.
+		--		command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/js-debug-adapter",
+		--		args = { "${port}" },
+		--	},
+		--}
+
 		dap.adapters["pwa-node"] = {
 			type = "server",
 			host = "localhost",
 			port = "${port}",
 			executable = {
-				-- **VERIFICAR RUTA**: Asegúrate que esta ruta sea correcta para la instalación de Mason en tu sistema.
-				command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/js-debug-adapter",
-				args = { "${port}" },
+				command = "node",
+				args = {
+					os.getenv("HOME")
+						.. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+					"${port}",
+				},
 			},
 		}
 
@@ -55,16 +69,48 @@ return {
 				processId = require("dap.utils").pick_process,
 				cwd = "${workspaceFolder}",
 			},
+			{
+				name = "Attach NestJS",
+				type = "pwa-node",
+				request = "attach",
+				port = 9229,
+				cwd = "${workspaceFolder}",
+				sourceMaps = true,
+				protocol = "inspector",
+				outFiles = { "${workspaceFolder}/dist/**/*.js" },
+			},
 		}
 
 		-- 3. Configuraciones de Lanzamiento (JavaScript)
 		dap.configurations.javascript = {
+			-- ▶️ Ejecutar archivo JS directamente
 			{
 				type = "pwa-node",
 				request = "launch",
-				name = "Launch file (JS)",
+				name = "Launch JS",
 				program = "${file}",
 				cwd = "${workspaceFolder}",
+				protocol = "inspector",
+				skipFiles = { "<node_internals>/**" },
+			},
+
+			-- 🟩 Attach a cualquier proceso Node.js en ejecución
+			{
+				type = "pwa-node",
+				request = "attach",
+				name = "Attach JS Process",
+				processId = require("dap.utils").pick_process,
+				cwd = "${workspaceFolder}",
+			},
+
+			-- 🔥 Attach a Node con inspect (ej: NestJS en JS, Express, etc.)
+			{
+				name = "Attach Node (9229)",
+				type = "pwa-node",
+				request = "attach",
+				port = 9229,
+				cwd = "${workspaceFolder}",
+				protocol = "inspector",
 			},
 		}
 
