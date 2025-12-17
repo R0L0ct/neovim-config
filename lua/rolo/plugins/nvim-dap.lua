@@ -127,6 +127,8 @@ return {
 		map("n", "<leader>do", dap.step_out, { desc = "DAP: Step Out" })
 		map("n", "<leader>dc", dap.close, { desc = "DAP: Close Session" })
 		map("n", "<leader>dt", dap.terminate, { desc = "DAP: Terminate Process" })
+		map("n", "<leader>ds", dap.stop, { desc = "DAP: Stop" })
+		map("n", "<leader>dR", dap.restart, { desc = "DAP: Restart" })
 
 		-- Breakpoints
 		map("n", "<leader>db", dap.toggle_breakpoint, { desc = "DAP: Toggle Breakpoint" })
