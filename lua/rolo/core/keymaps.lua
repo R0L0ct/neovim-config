@@ -40,10 +40,10 @@ keymap.set("n", "<leader>sr", "<C-w>r", { desc = "Rotate splits" })
 keymap.set("n", "<leader>sV", "<C-w>t<C-w>H", { desc = "Make horizontal split vertical" })
 keymap.set("n", "<leader>sH", "<C-w>t<C-w>K", { desc = "Make vertical split horizontal" })
 
-keymap.set("n", "<A-Left>",  ":vertical resize -5<CR>", { desc = "Shrink width" })
+keymap.set("n", "<A-Left>", ":vertical resize -5<CR>", { desc = "Shrink width" })
 keymap.set("n", "<A-Right>", ":vertical resize +5<CR>", { desc = "Increase width" })
-keymap.set("n", "<A-Up>",    ":resize -2<CR>", { desc = "Shrink height" })
-keymap.set("n", "<A-Down>",  ":resize +2<CR>", { desc = "Increase height" })
+keymap.set("n", "<A-Up>", ":resize -2<CR>", { desc = "Shrink height" })
+keymap.set("n", "<A-Down>", ":resize +2<CR>", { desc = "Increase height" })
 
 keymap.set("n", "<A-h>", "<C-w>H", { desc = "Move split to left" })
 keymap.set("n", "<A-j>", "<C-w>J", { desc = "Move split to bottom" })
@@ -52,7 +52,7 @@ keymap.set("n", "<A-l>", "<C-w>L", { desc = "Move split to right" })
 
 -- Auto-resize cuando cambia el tamaño de la ventana
 vim.api.nvim_create_autocmd("VimResized", {
-  command = "wincmd =",
+	command = "wincmd =",
 })
 
 -- Terminal
@@ -75,7 +75,11 @@ keymap.set("n", "<leader>gdc", "<cmd>DiffviewClose<CR>", { desc = "Close Diffvie
 
 -- Open .env
 vim.keymap.set("n", "<leader>oe", function()
-  local root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
-  vim.cmd("edit " .. root .. "/.env")
+	local root = vim.fn.system("git rev-parse --show-toplevel"):gsub("\n", "")
+	vim.cmd("edit " .. root .. "/.env")
 end, { desc = "Abrir .env del proyecto" })
 
+-- Toggle Relative Numbers
+vim.keymap.set("n", "<leader>rn", function()
+	vim.wo.relativenumber = not vim.wo.relativenumber
+end, { desc = "Toggle Relative Numbers" })
