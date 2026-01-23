@@ -5,7 +5,7 @@ return {
 		"nvim-treesitter/nvim-treesitter-context",
 	},
 	config = function()
-		require("nvim-treesitter.configs").setup({
+		require("nvim-treesitter.config").setup({
 			modules = {},
 			ignore_install = {},
 			-- A list of parser names, or "all" (the listed parsers MUST always be installed)
