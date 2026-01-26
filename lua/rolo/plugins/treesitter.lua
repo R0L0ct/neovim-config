@@ -26,6 +26,8 @@ return {
 				"tsx",
 				"prisma",
 				"html",
+				"yaml",
+				"latex",
 			},
 
 			-- Install parsers synchronously (only applied to `ensure_installed`)
