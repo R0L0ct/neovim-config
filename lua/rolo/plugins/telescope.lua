@@ -1,11 +1,16 @@
 return {
 	"nvim-telescope/telescope.nvim",
 	branch = "master",
-	dependencies = { "nvim-lua/plenary.nvim" },
+	dependencies = {
+		"nvim-lua/plenary.nvim",
+		{ "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+		{ "nvim-tree/nvim-web-devicons", opts = {} },
+	},
 	config = function()
 		local builtin = require("telescope.builtin")
 		local actions = require("telescope.actions")
-		require("telescope").setup({
+		local telescope = require("telescope")
+		telescope.setup({
 			defaults = {
 				mappings = {
 					n = {
@@ -13,8 +18,18 @@ return {
 					},
 				},
 			},
+			extensions = {
+				workspaces = {
+					-- keep insert mode after selection in the picker, default is false
+					keep_insert = false,
+					-- Highlight group used for the path in the picker, default is "String"
+					path_hl = "String",
+				},
+			},
 		})
+		telescope.load_extension("workspaces")
 
+		vim.keymap.set("n", "<leader>pwl", ":Telescope workspaces<CR>", { desc = "Listar Workspaces" })
 		vim.keymap.set("n", "<leader>pf", builtin.find_files, { desc = "Telescope find_files" })
 		vim.keymap.set("n", "<leader>pg", builtin.git_files, { desc = "Telescope git_files" })
 		vim.keymap.set("n", "<leader>ps", function()

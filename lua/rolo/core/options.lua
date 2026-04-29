@@ -5,9 +5,9 @@ local opt = vim.opt
 
 --[[ opt.guicursor = "sm:block" ]]
 
-opt.relativenumber = true
+--[[ opt.relativenumber = true ]]
 opt.number = true
-opt.mouse= ""
+opt.mouse= "a"
 
 -- tabs & indentation
 opt.tabstop = 4

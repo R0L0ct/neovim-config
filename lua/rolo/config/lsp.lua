@@ -23,6 +23,14 @@ vim.api.nvim_create_autocmd("LspAttach", {
 		-- end, opts)
 
 		local client = vim.lsp.get_client_by_id(event.data.client_id)
+
+		-------------------------------------------------------------------------
+		-- 🔥 Desactivar Semantic Tokens (evita alto uso de CPU + flickering)
+		-------------------------------------------------------------------------
+		if client and client.server_capabilities then
+			client.server_capabilities.semanticTokensProvider = nil
+		end
+
 		if client and client.server_capabilities.documentHighlightProvider then
 			local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
 			vim.api.nvim_create_autocmd("CursorHold", {
@@ -65,7 +73,7 @@ vim.lsp.config("*", {
 vim.lsp.enable({
 	"lua_ls",
 	"ts_ls",
-	"angularls",
+	--"angularls",
 	"bashls",
 	"pylsp",
 	"clangd",

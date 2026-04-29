@@ -1,39 +1,39 @@
 ---@type vim.lsp.Config
 
-local ok, mason_registry = pcall(require, "mason-registry")
-if not ok then
-	vim.notify("mason-registry could not be loaded")
-	return
-end
-
-local ngserver_bin = vim.fn.exepath("ngserver")
-local angularls_root = vim.fn.expand("$MASON/packages/angular-language-server")
-
-local cmd = {
-	ngserver_bin,
-	"--stdio",
-	"--tsProbeLocations",
-	table.concat({
-		angularls_root,
-		vim.uv.cwd(),
-	}, ","),
-	"--ngProbeLocations",
-	table.concat({
-		angularls_root .. "/node_modules/@angular/language-server",
-		vim.uv.cwd(),
-	}, ","),
-}
-
-local config = {
-	cmd = cmd,
-	on_new_config = function(new_config, new_root_dir)
-		new_config.cmd = cmd
-	end,
-	filetypes = {
-		"typescript",
-		"html",
-		"htmlangular",
-	},
-}
-
-return config
+--local ok, mason_registry = pcall(require, "mason-registry")
+--if not ok then
+--	vim.notify("mason-registry could not be loaded")
+--	return
+--end
+--
+--local ngserver_bin = vim.fn.exepath("ngserver")
+--local angularls_root = vim.fn.expand("$MASON/packages/angular-language-server")
+--
+--local cmd = {
+--	ngserver_bin,
+--	"--stdio",
+--	"--tsProbeLocations",
+--	table.concat({
+--		angularls_root,
+--		vim.uv.cwd(),
+--	}, ","),
+--	"--ngProbeLocations",
+--	table.concat({
+--		angularls_root .. "/node_modules/@angular/language-server",
+--		vim.uv.cwd(),
+--	}, ","),
+--}
+--
+--local config = {
+--	cmd = cmd,
+--	on_new_config = function(new_config, new_root_dir)
+--		new_config.cmd = cmd
+--	end,
+--	filetypes = {
+--		"typescript",
+--		"html",
+--		"htmlangular",
+--	},
+--}
+--
+--return config
