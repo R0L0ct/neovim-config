@@ -38,7 +38,7 @@ return {
 				desc = "goto preview references",
 			},
 			{
-				"gP",
+				"gpc",
 				"<cmd>lua require('goto-preview').close_all_win()<CR>",
 				noremap = true,
 				desc = "close all preview windows",
