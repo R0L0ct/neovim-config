@@ -12,6 +12,14 @@ vim.api.nvim_create_autocmd("FileType", {
 	end,
 })
 
+-- Spell
+vim.opt.spell = true
+vim.opt.spelllang = { "en", "es" }
+vim.api.nvim_set_hl(0, "SpellBad", {
+  sp = "#c678dd",
+  undercurl = true,
+})
+
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
