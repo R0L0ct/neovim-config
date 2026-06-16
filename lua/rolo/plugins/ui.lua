@@ -8,20 +8,58 @@ return {
 			-- refer to the configuration section below
 		},
 	},
+	-- {
+	-- 	"folke/noice.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {
+	-- 		-- tu configuración aquí
+	-- 	},
+	-- 	dependencies = {
+	-- 		"MunifTanjim/nui.nvim",
+	-- 		{
+	-- 			"rcarriga/nvim-notify",
+	-- 			opts = {
+	-- 				background_colour = "#000000", -- o el color de tu tema
+	-- 			},
+	-- 		},
+	-- 	},
+	-- },
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",
-		opts = {
-			-- tu configuración aquí
-		},
 		dependencies = {
 			"MunifTanjim/nui.nvim",
+			-- Añadimos fidget como dependencia para asegurar que cargue en orden
 			{
-				"rcarriga/nvim-notify",
+				"j-hui/fidget.nvim",
 				opts = {
-					background_colour = "#000000", -- o el color de tu tema
+					notification = {
+						window = {
+							winblend = 0, -- Fondo sólido o transparente según tu tema
+						},
+					},
 				},
 			},
+		},
+		opts = {
+			-- Mantiene el cmdline flotante y la búsqueda en el centro
+			cmdline = { enabled = true },
+			search = { enabled = true },
+
+			-- DESACTIVAMOS las notificaciones y mensajes de Noice
+			-- Esto hace que NeoVim use el sistema nativo, el cual será atrapado por Fidget
+			lsp = {
+				progress = { enabled = false }, -- Fidget ya maneja el progreso de LSP de forma más limpia
+				override = {
+					["vim.lsp.util.convert_markdown_to_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true,
+				},
+			},
+			messages = { enabled = false }, -- Evita que los mensajes grandes del sistema muten a popups
+			popupmenu = { enabled = true }, -- Mantiene el menú de autocompletado flotante si lo usas
+
+			notify = { enabled = false }, -- Apaga el formateador de notificaciones de Noice
 		},
 	},
 	{
