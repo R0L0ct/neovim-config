@@ -13,8 +13,15 @@ return {
 			javascriptreact = { "eslint_d" },
 			typescriptreact = { "eslint_d" },
 			python = { "pylint" },
-            c = { "cpplint" }
+			c = { "cpplint" },
 		}
+
+		lint.linters.eslint_d.args = vim.list_extend({
+			"--rule",
+			"indent: off",
+			"--rule",
+			"prettier/prettier: off", -- Por si usas el plugin de prettier
+		}, lint.linters.eslint_d.args or {})
 
 		local lint_augroup = vim.api.nvim_create_augroup("lint", { clear = true })
 

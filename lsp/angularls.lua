@@ -37,3 +37,7 @@
 --}
 --
 --return config
+
+-- Para evitar que mason lance un error al intentar cargar angularls
+local M = {}
+return M
